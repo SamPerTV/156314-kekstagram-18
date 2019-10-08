@@ -57,12 +57,12 @@ for (var j = 0; j < descriptionUser.length; j++) {
 }
 
 descriptionListElement.appendChild(fragment);
-//======
+
 bigpictureListElement.querySelector('.big-pictures__img').src = descriptionUser[0].url;
 bigpictureListElement.querySelector('.social__caption').textContent = descriptionUser[0].description;
 bigpictureListElement.querySelector('.likes-count').textContent = descriptionUser[0].likes;
 bigpictureListElement.querySelector('.comments-count').textContent = generateRandomNumber(100);
-//======
+
 
 var commentsUsersTemplate = document.querySelector('.social__comment');
 var commentsListElement = document.querySelector('.social__comments');
