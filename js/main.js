@@ -7,6 +7,15 @@ var COMMENTS_COUNT = 5;
 var descriptionUserCount = 25;
 var descriptionListElement = document.querySelector('.pictures');
 var bigpictureListElement = document.querySelector('.big-picture');
+var uploadImages = document.querySelector('.img-upload__overlay');
+var cancelButton = document.querySelector('.img-upload__cancel');
+
+var textHashtagsInput = document.querySelector('.text__hashtags');
+var effectList = document.querySelector('.effects__list');
+var getEffectElement = document.querySelector('.img-upload__preview');
+var effectLevelElement = document.querySelector('.effect-level');
+var textHashtagsValueSplit;
+var ESC_KEYCODE = 27;
 
 var generateRandomNumber = function (userNumber) {
   var randomNumber = Math.floor(Math.random() * userNumber);
@@ -83,3 +92,84 @@ for (var q = 0; q < COMMENTS_COUNT; q++) {
 commentsListElement.appendChild(fragmentComments);
 document.querySelector('.social__comment-count').classList.add('visually-hidden');
 document.querySelector('.comments-loader').classList.add('visually-hidden');
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  uploadImages.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  uploadImages.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+document.querySelector('#upload-file').addEventListener('change', function () {
+  openPopup();
+});
+cancelButton.addEventListener('click', function () {
+  closePopup();
+});
+effectList.addEventListener('click', function (evt) {
+  var target = evt.target;
+  switch (target.value) {
+    case 'chrome':
+      effectLevelElement.classList.remove('hidden');
+      getEffectElement.style.filter = 'grayscale(1)';
+      break;
+    case 'none':
+      effectLevelElement.classList.add('hidden');
+      getEffectElement.style.filter = '';
+      break;
+    case 'sepia':
+      effectLevelElement.classList.remove('hidden');
+      getEffectElement.style.filter = 'sepia(1)';
+      break;
+    case 'marvin':
+      effectLevelElement.classList.remove('hidden');
+      getEffectElement.style.filter = 'invert(100%)';
+      break;
+    case 'phobos':
+      effectLevelElement.classList.remove('hidden');
+      getEffectElement.style.filter = 'blur(3px)';
+      break;
+    case 'heat':
+      effectLevelElement.classList.remove('hidden');
+      getEffectElement.style.filter = 'brightness(3)';
+      break;
+  }
+});
+
+var renderSplitArray = function (spklitArray) {
+  var splitArrayStrin = spklitArray.toString();
+  return splitArrayStrin.split(' ');
+};
+
+textHashtagsInput.addEventListener('input', function () {
+  var textHashtagsValue = [textHashtagsInput.value];
+  textHashtagsValueSplit = renderSplitArray(textHashtagsValue);
+});
+
+textHashtagsInput.addEventListener('invalid', function () {
+  for (var d = 0; d < textHashtagsValueSplit.lenght; d++) {
+    if (textHashtagsValueSplit) {
+      textHashtagsInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+    }
+    else if (textHashtagsValueSplit[d].validity.tooLong) {
+      textHashtagsInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+    }
+    else if (textHashtagsInput.validity.valueMissing) {
+      textHashtagsInput.setCustomValidity('Обязательное поле');
+    }
+    else {
+      textHashtagsInput.setCustomValidity('');
+    }
+
+  }
+});
+
