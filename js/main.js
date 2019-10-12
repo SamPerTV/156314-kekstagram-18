@@ -155,21 +155,18 @@ textHashtagsInput.addEventListener('input', function () {
   textHashtagsValueSplit = renderSplitArray(textHashtagsValue);
 });
 
-textHashtagsInput.addEventListener('invalid', function () {
-  for (var d = 0; d < textHashtagsValueSplit.lenght; d++) {
-    if (textHashtagsValueSplit) {
-      textHashtagsInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
-    }
-    else if (textHashtagsValueSplit[d].validity.tooLong) {
-      textHashtagsInput.setCustomValidity('Имя не должно превышать 25-ти символов');
-    }
-    else if (textHashtagsInput.validity.valueMissing) {
-      textHashtagsInput.setCustomValidity('Обязательное поле');
-    }
-    else {
-      textHashtagsInput.setCustomValidity('');
-    }
 
+textHashtagsInput.addEventListener('input', function (evt) {
+  var target = evt.target;
+  for (var s = 0; s < textHashtagsValueSplit.length; s++) {
+    if (textHashtagsValueSplit[s].length < 2) {
+      target.setCustomValidity('Хэштэг должен состоять из двух символов');
+    } else if (textHashtagsValueSplit[s].indexOf('#') < 0) {
+      target.setCustomValidity('Пропущен символ #');
+    } else if (textHashtagsValueSplit[s].length >= 10) {
+      target.setCustomValidity('Хэштэг не может состоять больше 10-ти символов');
+    } else {
+      target.setCustomValidity('');
+    }
   }
 });
-
