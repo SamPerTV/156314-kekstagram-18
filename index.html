@@ -118,8 +118,8 @@
 
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                  <input class="text__hashtags" minlength="2" maxlength="25"required  name="hashtags" placeholder="#хэш-тег">
-                  <textarea class="text__description" name="description" minlength="2" maxlength="100" required placeholder="Ваш комментарий..."></textarea>
+                  <input class="text__hashtags"    name="hashtags" placeholder="#хэш-тег">
+                  <textarea class="text__description" name="description" minlength="2" maxlength="100"  placeholder="Ваш комментарий..."></textarea>
                 </fieldset>
 
                 <!-- Кнопка для отправки данных на сервер -->
@@ -196,7 +196,7 @@
   <!-- Шаблон изображения случайного пользователя -->
   <template id="picture">
     <a href="#" class="picture">
-      <img class="picture__img" src="" width="182" height="182" alt="Случайная фотография">
+      <img class="picture__img" src="" tabindex="0" width="182" height="182" alt="Случайная фотография">
       <p class="picture__info">
         <span class="picture__comments"></span>
         <span class="picture__likes"></span>
